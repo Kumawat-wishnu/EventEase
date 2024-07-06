@@ -1,0 +1,57 @@
+/* Style for the form container */
+.registration-form {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Style for form labels */
+  .registration-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Style for form input fields */
+  .registration-form input[type="text"],
+  .registration-form input[type="date"],
+  .registration-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+  }
+  
+  /* Style for submit button */
+  .registration-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #6b42ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .registration-form button[type="submit"]:hover {
+    background-color: #5a2eeb;
+  }
+
+  .heading{
+    text-align: center;
+    font-family: Lobster, cursive; /* Adding a fallback font family */
+    font-size: 40px; /* Increasing font size */
+    color: hsl(0, 0%, 0%); /* Changing text color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Adding a text shadow for depth */
+    margin-top: 15px;
+    margin-bottom: 40px; /* Adding some space below the heading */
+    letter-spacing: 1px; /* Adjusting letter spacing */
+    animation: slideInFromLeft 1s ease-in-out;
+  }
+  

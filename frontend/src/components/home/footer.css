@@ -1,0 +1,45 @@
+.hero-section{
+    background-color:#f8f9fa;
+    padding: 80px 0;
+}
+
+.hero-section h2{
+    color: #333;
+}
+
+.hero-section p {
+    color:#666;
+}
+
+.cta-section {
+    background-color: #6b42ff; /* Background color */
+    color: #fff; /* Text color */
+    padding: 80px 0; /* Padding top and bottom */
+  }
+  
+  .cta-section h2 {
+    color: #fff; /* Text color */
+  }
+  
+  .cta-section p {
+    color: #ccc; /* Text color */
+  }
+
+/* .RTS h2{
+    text-align:center;
+}
+
+.RTS p{
+    text-align:center;
+} */
+.RTS.Button{
+    margin:auto;
+}
+
+/* .rowss{
+    margin-top:40px;
+} */
+/* .row {
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+  } */

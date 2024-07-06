@@ -1,0 +1,234 @@
+/* .eventsPage {
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.events-heading {
+    font-size: 32px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.events-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.event-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-details {
+    padding: 20px;
+}
+
+.event-date,
+.event-location {
+    font-style: italic;
+    margin: 10px 0;
+}
+
+.event-description {
+    margin-bottom: 20px;
+}
+
+.event-details.custom-button:hover {
+   
+    background-color: hsl(12, 100%, 60%); 
+    color: hsl(0, 89%, 52%); 
+    border-color: #d528e4; 
+ 
+} */
+
+
+
+
+
+.eventsPage {
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.S-heading{
+/*     
+    text-align:center;
+    font-family:Lobster; */
+
+    text-align: center;
+    font-family: Lobster, cursive; /* Adding a fallback font family */
+    font-size: 40px; /* Increasing font size */
+    color: hsl(0, 0%, 0%); /* Changing text color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Adding a text shadow for depth */
+    margin-top: 15px;
+    margin-bottom: 40px; /* Adding some space below the heading */
+    letter-spacing: 1px; /* Adjusting letter spacing */
+    animation: slideInFromLeft 1s ease-in-out;
+ 
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px); /* Start off the screen */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0); /* Slide in from left */
+    }
+}
+
+.events-heading {
+    font-size: 32px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+    font-family:Lobster;
+}
+
+.events-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.event-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    display: flex; 
+    grid-column:1/4;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-text {
+    justify-content:center;
+    /* width:480px; */
+    flex-grow:1;
+    max-width: 50%;
+    /* font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+
+}
+
+.event-details {
+    padding: 20px;
+    flex: 1; 
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    /* grid-column:1/4; */
+}
+
+.event-image {
+    /* width: 500px;  */
+    margin-right: 20px; 
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-grow: 1;
+}
+
+.event-image img {
+    width: 100%; 
+    flex-grow:1;
+}
+
+.event-date,
+.event-location {
+    font-style: italic;
+    margin: 10px 0;
+}
+
+.event-description {
+    margin-bottom: 35px;
+    font-style: italic;
+}
+
+.event-details.custom-button:hover {
+  
+    background-color: hsl(12, 100%, 60%); 
+    color: hsl(0, 89%, 52%); 
+    border-color: #d528e4; 
+   
+}
+p{
+    text-align: center;
+    font-family: Montserrat;
+    font-size:larger;
+}
+
+/* .custom-button{
+    margin-left: 60px;
+} */
+
+
+
+/* .events-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.event-card {
+    width: calc(50% - 10px); 
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+}
+
+.event-image {
+    flex: 0 0 40%; 
+    padding: 20px;
+}
+
+.event-image img {
+    width: 100%;
+    height: auto;
+}
+
+.event-details {
+    flex: 1;
+    padding: 20px;
+}
+
+.events-heading {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.event-date,
+.event-location {
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.event-button {
+    background-color: #6b42ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.event-button:hover {
+    background-color: #5a32cc;
+} */
+
+
+

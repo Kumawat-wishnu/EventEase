@@ -1,0 +1,36 @@
+.modal-content {
+    width: 40% !important;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left:365px;
+    height:350px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+   
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    margin-left:190px;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-body p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
