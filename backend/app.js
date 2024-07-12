@@ -10,8 +10,13 @@ doenv.config({
 const connection=require("./db/connection");
 
 
+const corsOptions = {
+    origin: 'http://localhost:3000', // Frontend origin
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  };
 
-app.use(cors());
+app.use(cors(corsOptions));
+// app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));

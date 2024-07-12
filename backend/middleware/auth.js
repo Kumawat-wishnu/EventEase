@@ -98,7 +98,8 @@ const login = async (req, res, next) => {
           const cookieOptions = {
             expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
             httpOnly: true,
-            sameSite: 'None',
+            sameSite: 'Strict',
+            secure: process.env.NODE_ENV === 'production', 
             domain: 'localhost',
             path: '/',
           };
@@ -112,7 +113,20 @@ const login = async (req, res, next) => {
           // res.cookie("joes", token, cookieOptions);
           console.log("i am done");
           // console.log( res.cookie("token", token, cookieOptions))
-          res.status(200).cookie("token", token, cookieOptions,{ domain: '127.0.0.1', path: '/' }).json({ msg: "Login Successful", msg_type: "good",token:token ,id:id , role:role});
+          // res.status(200).cookie("token", token, cookieOptions,{ domain: '127.0.0.1', path: '/' }).json({ msg: "Login Successful", msg_type: "good",token:token ,id:id , role:role});
+         
+         
+          // res.status(200).cookie("token", token, cookieOptions).json({ msg: "Login Successfulll", token: token, id: id, role: role });
+       
+        //   res.cookie('token', token, {
+        //     httpOnly: true,
+        //     sameSite: 'Strict',
+        //     secure: process.env.NODE_ENV === 'production',
+        //     maxAge: 24 * 60 * 60 * 1000, // 1 day
+        // });
+        res.cookie('token', token, cookieOptions);
+
+        res.status(200).json({ success: true, message: 'Login successful' });
         }
       }
     } catch (error) {
@@ -205,10 +219,27 @@ const login = async (req, res, next) => {
   };
 
   const logout = async (req, res) => {
-    res.cookie("token", "logout", {
-      expires: new Date(Date.now() + 2 * 1000),
-      httpOnly: true,
-    });
+    // res.cookie("token", "logout", {
+    //   expires: new Date(Date.now() + 2 * 1000),
+    //   httpOnly: true,
+    // });
+
+    // res.cookie('token', '', {
+    //   expires: new Date(0), // Set the cookie expiry to a past date
+    //   httpOnly: true,
+    //   sameSite: 'None',
+    //   secure: true, // Ensure the cookie is only sent over HTTPS
+    // });
+    res.cookie('token','', {
+      expires: new Date(0), // Set the cookie expiry to a past date
+    httpOnly: true,
+    sameSite: 'Strict', // Adjust based on requirements
+    secure: process.env.NODE_ENV === 'production', // Secure in production, not secure in development
+    domain: 'localhost', // Ensure this matches the domain used when setting the cookie
+    path: '/',
+  });
+
+  console.log("i am in logout");
     res.status(200).json({success: true, message: 'Logout successful'})
     //.redirect("/");
     console.log("logged out successfully");
