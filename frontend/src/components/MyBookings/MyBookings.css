@@ -1,0 +1,98 @@
+/* src/components/MyBookings.css
+.my-bookings-page {
+    padding: 20px;
+}
+
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.booking-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.booking-card h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.booking-card p {
+    margin: 5px 0;
+} */
+
+
+.my-bookings-page {
+    padding: 20px;
+    background-color: #f9f9f9;
+    font-family:Lobster, cursive;
+}
+
+.my-bookings-page h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: slideInFromLeft 1s ease-in-out;
+}
+
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.booking-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.booking-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.booking-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.booking-card p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* .booking-card .event-date {
+   
+}
+
+.booking-card .event-location {
+   
+} */
+
+.booking-card .ticket-code {
+    font-weight: bold;
+    color: #2196f3;
+}
+
+.no-bookings {
+    text-align: center;
+    color: #777;
+    font-size: 1.2em;
+    margin-top: 50px;
+}

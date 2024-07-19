@@ -8,6 +8,7 @@ import Footer from './components/home/footer';
 import RegisterEventPage from './pages/RegisterEventPage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
+import MyBookingsPage from './pages/MyBookings';
 function App(){
   return (
     
@@ -22,6 +23,7 @@ function App(){
          <Route path="/RegisterEvent" element={<RegisterEventPage/>} />
          <Route path="/Login" element={<LoginPage/>}/>
          <Route path="/Signup" element={<SignupPage/>}/>
+         <Route path="/MyBookingsPage" element={<MyBookingsPage/>}/>
 
         </Routes>
       </Router>

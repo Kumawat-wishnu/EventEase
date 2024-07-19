@@ -128,13 +128,14 @@ function Header() {
         Login
       </Button>
       </Link> */}
+      <Link to="/MyBookingsPage" className="nav-link" style={{color:'white',marginLeft:'0.75rem'}}>MyBookings</Link>
       {isLoggedIn ? (
-            <Button variant="primary" style={{backgroundColor:'white', color: 'black', margin: '0.25rem'}} onClick={handleLogout}>
+            <Button variant="primary" style={{backgroundColor:'white', color: 'black', marginLeft:'0.75rem'}} onClick={handleLogout}>
               Logout
             </Button>
           ) : (
             <Link to="/Login">
-              <Button variant="primary" style={{backgroundColor:'white', color: 'black', margin: '0.25rem'}} type="submit">
+              <Button variant="primary" style={{backgroundColor:'white', color: 'black', marginLeft:'0.75rem'}} type="submit">
                 Login
               </Button>
             </Link>

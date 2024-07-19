@@ -141,6 +141,19 @@ const searchEvents= async(req,res, next)=>{
     }
 };
 
+const getBookingsDetails= async(req,res,next)=>{
+    const userId= req.params.userId;
+    try{
+        const bookings= await eventModel.getBookingsDetailsByUserId(userId);
+        res.status(200).json({success:true,bookings});
+    }
+    catch(error)
+    {
+        console.error('Error fetching bookings details:',error);
+        res.status(500).json({success:false,message:'Error fetching bookings details'});
+    }
+};
+
 
 
 
@@ -154,5 +167,6 @@ module.exports={
     registerForEvent,
     validateTicket,
     getRegisteredUsers,
-    searchEvents
+    searchEvents,
+    getBookingsDetails
 };

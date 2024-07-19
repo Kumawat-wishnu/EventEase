@@ -11,6 +11,7 @@ router.put('/updateEvent/:id',eventController.updateEvent);
 router.delete('/deleteEvent/:id',eventController.deleteEvent);
 router.post('/registerForEvent',eventController.registerForEvent);
 router.post('/validateTicket',eventController.validateTicket);
+router.get('/getBookingsDetails/:userId',eventController.getBookingsDetails);
 
 
 module.exports=router;

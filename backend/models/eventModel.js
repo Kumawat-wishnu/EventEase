@@ -137,6 +137,24 @@ const searchEvents=async(query,next)=>{
     }
 }
 
+const getBookingsDetailsByUserId= async(userId,next)=>{
+    const query=`
+    SELECT ue.event_id, ue.ticket_code, e.title, e.description, e.date, e.location
+    FROM user_events ue
+    JOIN events e ON ue.event_id=e.id
+    WHERE ue.user_id = ?
+    `;
+    try{
+        const [rows]= await db.promise().query(query, [userId]);
+        return rows;
+    }
+    catch(error)
+    {   
+        console.error('Error fetching bookings details:',error);
+        return next(new ErrorHandler('Error fetching bookings details:',500));
+    }
+}
+
 module.exports={
     createEvent,
     getAllEvents,
@@ -146,5 +164,6 @@ module.exports={
     registerForEvent,
     validateTicket,
     getRegisteredUsers,
-    searchEvents
+    searchEvents,
+    getBookingsDetailsByUserId
 };
