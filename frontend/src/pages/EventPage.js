@@ -1,10 +1,10 @@
 import React from 'react';
 import Events from '../components/Events/Events'
 
-function EventsPage(){
+function EventsPage({ searchQuery }){
     return(
         <div className="events-page">
-         <Events/>
+         <Events searchQuery={searchQuery}/>
         </div>
     );
 }

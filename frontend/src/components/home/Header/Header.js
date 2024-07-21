@@ -15,9 +15,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 
 
-function Header() {
+function Header({onSearch}) {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchQuery,setSearchQuery]=useState('');
   // const navigate = useNavigate();
   const navigate= useNavigate();
 
@@ -57,6 +58,12 @@ function Header() {
       console.error('Logout failed',error);
     }
   };
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    console.log("clicked search");
+    onSearch(searchQuery);
+  }
 
   // const handleLogout = () => {
   //   // Perform logout operations (e.g., clearing tokens, updating state)
@@ -114,14 +121,16 @@ function Header() {
                 Link
               </Nav.Link> */}
             </Nav>
-            <Form className="d-flex">
+            <Form className="d-flex" onSubmit={handleSubmit}>
               <Form.Control
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                value={searchQuery}
+                onChange={(e)=>setSearchQuery(e.target.value)}
               />
-              <Button variant="outline-success" style={{backgroundColor:'white', color: 'black'}}>Search</Button>
+              <Button type="submit" variant="outline-success" style={{backgroundColor:'white', color: 'black'}}>Search</Button>
             </Form>
             {/* <Link to="/Login">
             <Button variant="primary" style={{backgroundColor:'white', color: 'black',margin:'0.25rem'}} type="submit">

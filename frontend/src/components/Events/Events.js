@@ -6,6 +6,7 @@ import {Button} from 'react-bootstrap';
 import axios from 'axios';
 import Image1 from '../../images/event1.jpeg';
 import { useNavigate } from 'react-router-dom';
+// import jwt from 'jsonwebtoken';
 // const jwt= require('jsonwebtoken');
 
 // const getCookie = (name) => {
@@ -23,13 +24,18 @@ import { useNavigate } from 'react-router-dom';
 //     }
 // };
 
-function Events() {
+function Events({searchQuery}) {
+    console.log('Events component mounted with searchQuery:', searchQuery);
+    console.log('you are in starting of events')
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [userId, setUserId] = useState(null); // Assuming you get the user ID from somewhere, like authentication context
     const navigate = useNavigate(); // Initialize useNavigate
+    console.log("before useEffect of events");
 
+  
     useEffect(() => {
+        console.log("in the useEffect of events");
         // // Fetch user ID from localStorage or context
         // const token = getCookie('token');
         
@@ -52,20 +58,38 @@ function Events() {
         //     // Optionally, you may redirect to login or handle this case based on your application flow.
         // }
        
-
-        fetch('http://localhost:3009/event/getAllEvents')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setEvents(data.events);
+        console.log('you are now in events');
+        const fetchEvents = async (query = '') => {
+            console.log('you are now in fetchevents');
+            setLoading(true);
+            try {
+                const response = query
+                    ? await axios.get(`http://localhost:3009/event/search?q=${query}`)
+                    : await axios.get('http://localhost:3009/event/getAllEvents');
+                setEvents(response.data.events);
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            } finally {
                 setLoading(false);
-            })
-            .catch(error => console.error('Error fetching events', error));
-    }, []);
+            }
+        };
+
+        fetchEvents(searchQuery);
+    }, [searchQuery]);
+
+    //     fetch('http://localhost:3009/event/getAllEvents')
+    //         .then(response => {
+    //             if (!response.ok) {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //             return response.json();
+    //         })
+    //         .then(data => {
+    //             setEvents(data.events);
+    //             setLoading(false);
+    //         })
+    //         .catch(error => console.error('Error fetching events', error));
+    // }, []);
 
     const loadRazorpay = async (eventId) => {
         if (!window.Razorpay) {
