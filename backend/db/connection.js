@@ -104,26 +104,18 @@ connection.query(createEventTableQuery,(error,results)=>{
     }
   });
 
-//   const createTicketsTableQuery=`
-//   CREATE TABLE IF NOT EXISTS tickets (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     user_id INT NOT NULL,
-//     event_id INT NOT NULL,
-//     ticket_code VARCHAR(255) NOT NULL,
-//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-//     FOREIGN KEY (user_id) REFERENCES users(id),
-//     FOREIGN KEY (event_id) REFERENCES events(id)
-// );
-//   `;
+  // const AlterTicketsTableQuery=`
+  // ALTER TABLE events ADD COLUMN image_url VARCHAR(255);
+  // `;
 
-//   connection.query(createTicketsTableQuery,(error,results)=>{
-//     if(error)
-//     {
-//       console.error('Error creating tickets table;',error);
-//     }
-//     else{
-//       console.log('tickets Table created or already exists');
-//     }
-//   });
+  // connection.query(AlterTicketsTableQuery,(error,results)=>{
+  //   if(error)
+  //   {
+  //     console.error('Error altering table;',error);
+  //   }
+  //   else{
+  //     console.log('table altered successfully');
+  //   }
+  // });
   
  module.exports=connection;

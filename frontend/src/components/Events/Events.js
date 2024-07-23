@@ -183,7 +183,7 @@ function Events({searchQuery}) {
                             <div key={event.id} className="event-card">
                                 <div className="event-details">
                                     <div className="event-image">
-                                        <img src={Image1} alt={event.title} />
+                                        <img src={event.image_url} alt={event.title} />
                                     </div>
                                     <div className="event-text">
                                         <h3 className="events-heading">{event.title}</h3>
@@ -191,7 +191,7 @@ function Events({searchQuery}) {
                                         <p className="event-location">Location: {event.location}</p>
                                         <p className="event-description">{event.description}</p>
                                         <Button
-                                            style={{ backgroundColor: '#6b42ff', marginLeft: '260px' }}
+                                            style={{ backgroundColor: '#6b42ff' }}
                                             className="custom-button"
                                             onClick={() => handlePayment(event.id)}
                                         >

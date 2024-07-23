@@ -2,10 +2,10 @@ const db= require('../db/connection');
 const ErrorHandler = require("../utils/errorhandler");
 
 
-const createEvent=async(title,description,date,location,next)=>{
+const createEvent=async(title,description,date,location,imageUrl,next)=>{
     try{
-        const query= 'INSERT INTO events (title, description, date, location) VALUES (?, ?, ?, ?)';
-        const [results]= await db.promise().query(query,[title,description, date, location]);
+        const query= 'INSERT INTO events (title, description, date, location, image_url) VALUES (?, ?, ?, ?, ?)';
+        const [results]= await db.promise().query(query,[title,description, date, location, imageUrl]);
         return results.insertId;
     }
     catch(error)

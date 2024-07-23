@@ -11,7 +11,12 @@ function RegistrationForm() {
     const [description, setDescription]= useState('');
     const [date, setDate]= useState('');
     const [location, setLocation]= useState('');
+    const [image, setImage]= useState(null);
     const [IsSubmitted,setIsSubmitted ]=useState(false);
+
+    const handleFileChange=(e)=>{
+      setImage(e.target.files[0]);
+    };
 
     const handleSubmit=(e)=> {
         e.preventDefault();
@@ -19,10 +24,15 @@ function RegistrationForm() {
         title,
         description,
         date,
-        location
+        location,
+        image
        };
 
-       axios.post('http://localhost:3009/event/createEvent',formData)
+       axios.post('http://localhost:3009/event/createEvent',formData,{
+        headers:{
+          'Content-Type':'multipart/form-data',
+        },
+       })
        .then(response=>{
         console.log('Form submitted successfully',response.data);
         setIsSubmitted(true);
@@ -30,6 +40,7 @@ function RegistrationForm() {
         setDescription('');
         setDate('');
         setLocation('');
+        setImage(null);
        })
        .catch(error=>{
         console.error("Error submitting form",error);
@@ -80,6 +91,15 @@ function RegistrationForm() {
           onChange={(e) => setLocation(e.target.value)} 
           required 
         />
+      </div>
+      <div>
+      <label htmlFor="image">Image:</label>
+          <input
+            type="file"
+            id="image"
+            onChange={handleFileChange}
+            required
+          />
       </div>
       <button type="submit">Submit</button>
     </form>

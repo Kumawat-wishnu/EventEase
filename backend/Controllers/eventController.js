@@ -1,19 +1,149 @@
+const cloudinary= require('../cloudinary');
+const multer=require('multer');
 const eventModel= require('../models/eventmodel');
 const ErrorHandler= require('../utils/errorhandler');
+const path = require('path');
+const fs = require('fs');
 
+// const storage=multer.memoryStorage();
+
+
+// Set up storage engine
+const storage = multer.diskStorage({
+    destination: './uploads/', // Path to store uploaded files temporarily
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}-${path.basename(file.originalname)}`);
+    }
+  });
+  
+  const upload=multer({storage}).single('image');
+  
+  // Set up the multer middleware
+//   const upload = multer({
+//     storage,
+//     limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+//   });
 
 const createEvent=async(req,res,next)=>{
-    const {title, description, date, location}=req.body;
-    try{
-       const eventId= await eventModel.createEvent(title,description,date,location,next);
-       res.status(200).json({success:true, message:`event is created successfully with eventId=${eventId}`});
-    }
-    catch(error)
-    {
-       console.log('Error creating event:', error);
-       return next(new ErrorHandler('Error in creating event',500));
-    }
+    upload(req,res,async function(err){
+        if(err){
+            return next(new ErrorHandler('Error uploading image',500));
+        }
+
+        const {title, description, date,location}=req.body;
+        let imageUrl='';
+
+        try{
+        //   if(req.file) {
+        //     // const result= await cloudinary.uploader.upload_stream({
+        //     //     folder:'event-images',
+        //     // }, (error,result)=>{
+        //     //     if(error){
+        //     //         return next(new ErrorHandler('Error uploading image to Cloudinary',500));
+        //     //     }
+        //     //     imageUrl=result.secure_url;
+        //     // });
+
+        //     // req.file.stream.pipe(result);
+        //      // Step 1: Create a promise to handle the upload
+        //      const uploadResult = await new Promise((resolve, reject) => {
+        //         // Step 2: Create an upload stream to Cloudinary
+        //         const stream = cloudinary.uploader.upload_stream({
+        //             folder: 'event-images',
+        //         }, (error, result) => {
+        //             // Step 3: Handle the result of the upload
+        //             if (error) {
+        //                 reject(new ErrorHandler('Error uploading image to Cloudinary', 500));
+        //             } else {
+        //                 resolve(result);
+        //             }
+        //         });
+
+        //         // Step 4: Pipe the file's data to the upload stream
+        //         req.file.stream.pipe(stream);
+        //     });
+
+        //     // Step 5: Save the image URL from the upload result
+        //     imageUrl = uploadResult.secure_url;
+        //   }
+
+        // if (req.file) {
+        //     // Create a promise to handle the upload stream
+        //     const streamUpload = (buffer) => {
+        //       return new Promise((resolve, reject) => {
+        //         const stream = cloudinary.uploader.upload_stream((error, result) => {
+        //           if (result) {
+        //             resolve(result);
+        //           } else {
+        //             reject(error);
+        //           }
+        //         });
+        //         stream.end(buffer);
+        //       });
+        //     };
+    
+        //     // Upload the file buffer to Cloudinary
+        //     const result = await streamUpload(req.file.buffer);
+        //     imageUrl = result.secure_url;
+        //   }
+
+        if (req.file) {
+            // Upload the file buffer to Cloudinary
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+              folder: 'event-images',
+            });
+      
+            imageUrl = uploadResult.secure_url;
+            console.log("the file path is",req.file.path);
+            fs.unlinkSync(req.file.path);
+          }
+          const eventId = await eventModel.createEvent(title, description, date, location, imageUrl, next);
+          res.status(200).json({ success: true, message: `Event is created successfully with eventId=${eventId}` });
+        }
+        catch (error) {
+            console.log('Error creating event:', error);
+            return next(new ErrorHandler('Error in creating event', 500));
+          }
+
+    });
 };
+
+
+const uploadsDir = path.join(__dirname, '../uploads');
+
+// Function to delete all files in the directory
+const cleanUpUploads = async() => {
+    fs.readdir(uploadsDir, (err, files) => {
+      if (err) {
+        console.error('Error reading uploads directory:', err);
+        return;
+      }
+  
+      files.forEach((file) => {
+        const filePath = path.join(uploadsDir, file);
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error('Error deleting file:', err);
+          } else {
+            console.log(`Deleted file: ${filePath}`);
+          }
+        });
+      });
+    });
+  };
+
+// const createEvent=async(req,res,next)=>{
+//     const {title, description, date, location}=req.body;
+//     try{
+//        const eventId= await eventModel.createEvent(title,description,date,location,next);
+//        res.status(200).json({success:true, message:`event is created successfully with eventId=${eventId}`});
+//     }
+//     catch(error)
+//     {
+//        console.log('Error creating event:', error);
+//        return next(new ErrorHandler('Error in creating event',500));
+//     }
+// };
 
 const getAllEvents = async (req, res,next) => {
     try {
@@ -168,5 +298,6 @@ module.exports={
     validateTicket,
     getRegisteredUsers,
     searchEvents,
-    getBookingsDetails
+    getBookingsDetails,
+    cleanUpUploads
 };

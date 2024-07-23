@@ -4,12 +4,16 @@ const authRoutes=require('./routes/authRoutes');
 const errorHandlerMiddleware = require('./middleware/error'); 
 const eventRoutes=require('./routes/eventRoutes');
 const paymentRoutes=require('./routes/paymentRoutes');
+const eventController=require('./Controllers/eventController');
 
 app.use('/authentication',authRoutes);
 app.use('/event',eventRoutes);
 app.use('/payment',paymentRoutes);
 
 app.use(errorHandlerMiddleware);
+//for deleting the images from uploads folder if exists
+eventController.cleanUpUploads();
+
 
 app.get("/",(req,res)=>{
     res.send("hello dear");
