@@ -25,6 +25,16 @@ const getAllEvents = async (next) => {
     }
 };
 
+const getAllUsers = async (next) => {
+    try {
+        const [rows] = await db.promise().query('SELECT * FROM users');
+        return rows;
+    } catch (error) {
+        console.error('Error getting all users from database:', error);
+        return next(new ErrorHandler('Error getting all users from database:',500));
+    }
+};
+
 const getRegisteredUsers = async (next) => {
     try {
         const [rows] = await db.promise().query('SELECT * FROM user_events');
@@ -52,12 +62,12 @@ const getEventById= async(eventId,next)=>{
 }
 
 // Update an event in the database
-const updateEvent = async (eventId, title, description, date, location, next) => {
+const updateEvent = async (eventId, title, description, date, location, imageUrl, next) => {
     try {
 
         const [result] = await db.promise().execute(
-            'UPDATE events SET title = ?, description = ?, date = ?, location = ? WHERE id = ?',
-            [title, description, date, location, eventId]
+            'UPDATE events SET title = ?, description = ?, date = ?, location = ?, image_url = ? WHERE id = ?',
+            [title, description, date, location, imageUrl, eventId]
         );
 
         if (result.affectedRows === 0) {
@@ -165,5 +175,6 @@ module.exports={
     validateTicket,
     getRegisteredUsers,
     searchEvents,
-    getBookingsDetailsByUserId
+    getBookingsDetailsByUserId,
+    getAllUsers
 };

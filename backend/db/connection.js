@@ -82,6 +82,16 @@ connection.query(createEventTableQuery,(error,results)=>{
     console.log('event Table created or already exists');
   }});
 
+   // Drop the existing user_events table if it exists
+  //  const dropUserEventsTableQuery = 'DROP TABLE IF EXISTS user_events;';
+  
+  //  connection.query(dropUserEventsTableQuery, (error, results) => {
+  //    if (error) {
+  //      console.error('Error dropping user_events table:', error);
+  //    } else {
+  //      console.log('user_events table dropped (if it existed)');
+  //    }});
+
   const createUserEventsTableQuery=`
   CREATE TABLE IF NOT EXISTS user_events (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -89,8 +99,8 @@ connection.query(createEventTableQuery,(error,results)=>{
     event_id INT NOT NULL,
     ticket_code VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (event_id) REFERENCES events(id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
   `;
 

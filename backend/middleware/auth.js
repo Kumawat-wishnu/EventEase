@@ -96,14 +96,15 @@ const login = async (req, res, next) => {
           // localStorage.setItem('token',token);
   
           const cookieOptions = {
-            expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
-            httpOnly: true,
-            sameSite: 'Strict',
-            secure: process.env.NODE_ENV === 'production', 
+            expires: new Date(Date.now() +24 * 60 * 60 * 1000),
+            // httpOnly: true,
+            sameSite: 'strict',
+            secure:false , 
             domain: 'localhost',
             path: '/',
           };
          
+          //process.env.NODE_ENV === 'production'
           // res.status(201).cookie("token", token, options).json({
           //   success: true,
           //   user,
@@ -125,6 +126,7 @@ const login = async (req, res, next) => {
         //     maxAge: 24 * 60 * 60 * 1000, // 1 day
         // });
         res.cookie('token', token, cookieOptions);
+        // console.log('Cookies after setting token:', req.cookies);
 
         res.status(200).json({ success: true, message: 'Login successful' });
         }
@@ -230,6 +232,8 @@ const login = async (req, res, next) => {
     //   sameSite: 'None',
     //   secure: true, // Ensure the cookie is only sent over HTTPS
     // });
+    console.log('cookie',req.cookie);
+    console.log('cookies',req.cookies);
     res.cookie('token','', {
       expires: new Date(0), // Set the cookie expiry to a past date
     httpOnly: true,

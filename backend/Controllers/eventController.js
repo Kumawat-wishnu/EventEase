@@ -34,58 +34,6 @@ const createEvent=async(req,res,next)=>{
         let imageUrl='';
 
         try{
-        //   if(req.file) {
-        //     // const result= await cloudinary.uploader.upload_stream({
-        //     //     folder:'event-images',
-        //     // }, (error,result)=>{
-        //     //     if(error){
-        //     //         return next(new ErrorHandler('Error uploading image to Cloudinary',500));
-        //     //     }
-        //     //     imageUrl=result.secure_url;
-        //     // });
-
-        //     // req.file.stream.pipe(result);
-        //      // Step 1: Create a promise to handle the upload
-        //      const uploadResult = await new Promise((resolve, reject) => {
-        //         // Step 2: Create an upload stream to Cloudinary
-        //         const stream = cloudinary.uploader.upload_stream({
-        //             folder: 'event-images',
-        //         }, (error, result) => {
-        //             // Step 3: Handle the result of the upload
-        //             if (error) {
-        //                 reject(new ErrorHandler('Error uploading image to Cloudinary', 500));
-        //             } else {
-        //                 resolve(result);
-        //             }
-        //         });
-
-        //         // Step 4: Pipe the file's data to the upload stream
-        //         req.file.stream.pipe(stream);
-        //     });
-
-        //     // Step 5: Save the image URL from the upload result
-        //     imageUrl = uploadResult.secure_url;
-        //   }
-
-        // if (req.file) {
-        //     // Create a promise to handle the upload stream
-        //     const streamUpload = (buffer) => {
-        //       return new Promise((resolve, reject) => {
-        //         const stream = cloudinary.uploader.upload_stream((error, result) => {
-        //           if (result) {
-        //             resolve(result);
-        //           } else {
-        //             reject(error);
-        //           }
-        //         });
-        //         stream.end(buffer);
-        //       });
-        //     };
-    
-        //     // Upload the file buffer to Cloudinary
-        //     const result = await streamUpload(req.file.buffer);
-        //     imageUrl = result.secure_url;
-        //   }
 
         if (req.file) {
             // Upload the file buffer to Cloudinary
@@ -161,12 +109,16 @@ const getAllEvents = async (req, res,next) => {
     }
 };
 
+
+
 const getEventById = async (req, res,next) => {
-     const {eventId} = req.body;
+     const {eventId} = req.params;
     try {
         // Call the model function to fetch all events from the database
         const event = await eventModel.getEventById(eventId,next);
-
+         if (!event) {
+            return next(new ErrorHandler('Event not found', 404));
+          }
         // Send the list of events as a response
         res.status(200).json({ success: true, event});
     } catch (error) {
@@ -177,22 +129,59 @@ const getEventById = async (req, res,next) => {
 };
 
 const updateEvent = async (req, res,next) => {
-    const eventId = req.params.id;
-    const { title, description, date, location } = req.body;
 
-    try {
-        // Call the model function to update the event in the database
-        const updatedEvent = await eventModel.updateEvent(eventId,title, description, date, location,next);
+    upload(req,res,async function(err){
+        if(err){
+            return next(new ErrorHandler('Error uploading image',500));
+        }
+        
+        const eventId = req.params.id;
+        const {title, description, date,location}=req.body;
+        let imageUrl='';
 
-        // Send the updated event as a response
-        res.status(200).json({
+        try{
+
+        if (req.file) {
+            // Upload the file buffer to Cloudinary
+            const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+              folder: 'event-images',
+            });
+      
+            imageUrl = uploadResult.secure_url;
+            console.log("the file path is",req.file.path);
+            fs.unlinkSync(req.file.path);
+          }
+          const updatedEvent=await eventModel.updateEvent(eventId, title, description, date, location, imageUrl, next);
+        
+          res.status(200).json({
             success: true,
             data: updatedEvent
         });
-    } catch (error) {
-        console.error('Error updating event:', error);
-        return next(new ErrorHandler('Error updating event:',500));
-    }
+        }
+        catch (error) {
+            console.error('Error updating event:', error);
+            return next(new ErrorHandler('Error updating event:',500));
+          }
+
+    });
+
+
+    // const eventId = req.params.id;
+    // const { title, description, date, location } = req.body;
+
+    // try {
+    //     // Call the model function to update the event in the database
+    //     const updatedEvent = await eventModel.updateEvent(eventId,title, description, date, location,next);
+
+    //     // Send the updated event as a response
+    //     res.status(200).json({
+    //         success: true,
+    //         data: updatedEvent
+    //     });
+    // } catch (error) {
+    //     console.error('Error updating event:', error);
+    //     return next(new ErrorHandler('Error updating event:',500));
+    // }
 };
 
 const deleteEvent = async (req, res, next) => {
@@ -299,5 +288,6 @@ module.exports={
     getRegisteredUsers,
     searchEvents,
     getBookingsDetails,
-    cleanUpUploads
+    cleanUpUploads,
+    
 };

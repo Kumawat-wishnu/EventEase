@@ -9,6 +9,10 @@ import RegisterEventPage from './pages/RegisterEventPage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import MyBookingsPage from './pages/MyBookings';
+import EventDetailsPage from './pages/EventDetailsPage';
+import UpdateEventForm from './components/updateEvent/updateEvent';
+import UserDetailsPage from './pages/UserDetailsPage';
+
 function App(){
   //testing------->
   const [searchQuery, setSearchQuery]=useState('');
@@ -34,6 +38,9 @@ function App(){
          <Route path="/Login" element={<LoginPage/>}/>
          <Route path="/Signup" element={<SignupPage/>}/>
          <Route path="/MyBookingsPage" element={<MyBookingsPage/>}/>
+         <Route path="/Admin/eventDetails" element={<EventDetailsPage/>}/>
+         <Route path="/updateEvent/:eventId" element={<UpdateEventForm/>}/>
+         <Route path="/Admin/userDetails" element={<UserDetailsPage/>}/>
 
         </Routes>
       </Router>

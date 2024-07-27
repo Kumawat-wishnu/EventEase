@@ -6,6 +6,7 @@ import {Button} from 'react-bootstrap';
 import axios from 'axios';
 import Image1 from '../../images/event1.jpeg';
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';
 // import jwt from 'jsonwebtoken';
 // const jwt= require('jsonwebtoken');
 
@@ -103,9 +104,30 @@ function Events({searchQuery}) {
         }
     };
 
-    const handlePayment = async (eventId) => {
+    const getCookieValue = (name) => {
+        // document.cookie = "testCookie=testValue; path=/";
+        console.log('All cookies:', document.cookie);
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        console.log('match',match);
+        if (match) {
+          return match[2];
+        }
+        return null;
+      };
 
-        const userId=1;
+    const handlePayment = async (eventId) => {
+       
+        const token = getCookieValue('token'); // Replace 'token' with the name of your cookie
+        if (!token) {
+           throw new Error('No token found');
+       }
+
+       const decoded=jwtDecode(token);
+       console.log('decoded',decoded);
+       const userId=decoded.id;
+
+    //    console.log('userId',userId);
+        
         if (!userId) {
             alert('Please log in to register for an event.');
             return;

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../Events/spinner';
 import './MyBookings.css';
+import {jwtDecode} from 'jwt-decode';
 
 const getCookie = (name) => {
     const cookieString = document.cookie; // Get all cookies as a single string
@@ -19,6 +20,17 @@ const getCookie = (name) => {
     }
 };
 
+const getCookieValue = (name) => {
+    // document.cookie = "testCookie=testValue; path=/";
+    console.log('All cookies:', document.cookie);
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    console.log('match',match);
+    if (match) {
+      return match[2];
+    }
+    return null;
+  };
+
 function MyBookings() {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -28,13 +40,27 @@ function MyBookings() {
         const fetchBookings = async () => {
             try {
                 // const token = getCookie('token');
+                // console.log('getCookie',token);
                 // if (!token) {
                 //     throw new Error('No token found');
                 // }
 
                 // const decoded = jwt.decode(token); // You need to decode the token to get the userId
                 // const userId = decoded.id;
-                const userId=1;
+
+                const token = getCookieValue('token'); // Replace 'token' with the name of your cookie
+                 if (!token) {
+                    throw new Error('No token found');
+                }
+
+                const decoded=jwtDecode(token);
+                console.log('decoded',decoded);
+                const userId=decoded.id;
+
+                console.log('userId',userId);
+                  
+                //  console.log('Token:', token);
+                // const userId=1;
 
                 const response = await axios.get(`http://localhost:3009/event/getBookingsDetails/${userId}`
                 //     , {
@@ -62,7 +88,7 @@ function MyBookings() {
                 <div className="bookings-list">
                     {bookings.length > 0 ? (
                         bookings.map(booking => (
-                            <div key={booking.event_id} className="booking-card">
+                            <div key={booking.id} className="booking-card">
                                 <h3>{booking.title}</h3>
                                 <p className='event-date'>Date: {new Date(booking.date).toLocaleDateString()}</p>
                                 <p className='event-location'>Location: {booking.location}</p>

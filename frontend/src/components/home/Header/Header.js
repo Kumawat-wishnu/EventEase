@@ -13,6 +13,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 // import { NavItem, NavLink } from 'reactstrap';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
+// import {Dropdown, DropdownButton} from 'react-bootstrap';
 
 
 function Header({onSearch}) {
@@ -28,6 +29,8 @@ function Header({onSearch}) {
     // if (userLoggedIn) {
     //   setIsLoggedIn(true);
     // }
+    // if(!isLoggedIn)
+    //   navigate('/Login');
     console.log("in useEffect");
     const checkLoginStatus= async()=>{
       try{
@@ -49,7 +52,7 @@ function Header({onSearch}) {
   const handleLogout=async()=>{
     try{console.log('hiiiiiiiil');
 
-      await axios.get('http://localhost:3009/authentication/logout',{}, { withCredentials: true });
+      await axios.get('http://localhost:3009/authentication/logout',{ withCredentials: true });
       setIsLoggedIn(false);
       navigate('/');
     }
@@ -87,7 +90,16 @@ function Header({onSearch}) {
               
               <Link to="/" className="nav-link" style={{color:'white'}}>Home</Link>
               <Link to="/events" className="nav-link" style={{color:'white'}}>Events</Link>
-              <Link to="/RegisterEvent" className="nav-link" style={{color:'white'}}>RegisterEvent</Link>
+              {/* <Link to="/RegisterEvent" className="nav-link" style={{color:'white'}}>RegisterEvent</Link> */}
+              <NavDropdown title="Admin" id="navbarScrollingDropdown" className="custom-dropdown">
+                <NavDropdown.Item as={Link} to="/RegisterEvent">RegisterEvent</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/Admin/eventDetails">eventDetails</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/Admin/userDetails">userDetails</NavDropdown.Item>
+                {/* <NavDropdown.Divider />
+                <NavDropdown.Item href="#action5">
+                  Something else here
+                </NavDropdown.Item> */}
+              </NavDropdown>
               
                 {/* <Router>
                 <Link to="/tt" className="nav-link" style={{color:'white'}}>Home</Link>

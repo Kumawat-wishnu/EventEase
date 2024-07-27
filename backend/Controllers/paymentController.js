@@ -11,9 +11,9 @@ const razorpay= new Razorpay({
 });
 
 const createOrder=async(req,res,next)=>{
-    // const { userId, eventId } = req.body;
-    const userId=1;
-    const eventId=1;
+    const { userId, eventId } = req.body;
+    // const userId=1;
+    // const eventId=1;
 
     try {
         // Create an order with Razorpay

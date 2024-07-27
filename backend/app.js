@@ -9,6 +9,8 @@ doenv.config({
 });
 const connection=require("./db/connection");
 
+app.use(cookieParser());
+
 
 const corsOptions = {
     origin: 'http://localhost:3000', // Frontend origin
@@ -17,7 +19,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 // app.use(cors());
-app.use(cookieParser());
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
