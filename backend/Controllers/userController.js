@@ -39,9 +39,26 @@ const deleteUser = async (req, res, next) => {
     }
 };
 
+const updateUserRole=async(req,res,next)=>{
+    try{
+      const {userId}= req.params;
+      const {role}=req.body;
+    //   console.log("newRole is", role);
+      if (!userId || !role) {
+        return res.status(400).json({ success: false, message: 'Missing userId or role' });
+    }
+       const updateUserRole=await userModel.updateUserRole(userId, role);
+       console.log(updateUserRole.message);
+       res.json({success:updateUserRole.status, message: updateUserRole.message});
+    } catch(error){
+      console.error(error);
+      return next(new ErrorHandler('Error updating user role',500));
+    }
+  };
 
 
 module.exports={
     getAllUsers,
-    deleteUser
+    deleteUser,
+    updateUserRole
 }

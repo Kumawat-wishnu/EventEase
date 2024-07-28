@@ -25,15 +25,7 @@ const getAllEvents = async (next) => {
     }
 };
 
-const getAllUsers = async (next) => {
-    try {
-        const [rows] = await db.promise().query('SELECT * FROM users');
-        return rows;
-    } catch (error) {
-        console.error('Error getting all users from database:', error);
-        return next(new ErrorHandler('Error getting all users from database:',500));
-    }
-};
+
 
 const getRegisteredUsers = async (next) => {
     try {
@@ -99,6 +91,7 @@ const deleteEvent= async(eventId,next)=>{
 const registerForEvent=async(userId,eventId,next)=>{
     try {
         const ticketCode = generateTicketCode();
+        console.log("ticketCode in eventModal is",ticketCode);
         // Insert user event details into the user_events table
         await db.promise().execute('INSERT INTO user_events (user_id, event_id, ticket_code) VALUES (?, ?, ?)', [userId, eventId, ticketCode]);
         return ticketCode;
@@ -176,5 +169,5 @@ module.exports={
     getRegisteredUsers,
     searchEvents,
     getBookingsDetailsByUserId,
-    getAllUsers
+   
 };

@@ -2,11 +2,13 @@ import React, {useEffect, useState} from 'react';
 import UpdateEventForm from '../updateEvent/updateEvent';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import './eventDetails.css';
+import './userDetails.css';
 
 const UsersTable=()=>{
     console.log("hello we are in eventable function");
     const [users, setUsers]=useState([]);
+    const [userToUpdate, setUserToUpdate]= useState(null);
+    const [newRole, setNewRole]= useState('');
     const navigate=useNavigate();
     // const [eventToUpdate, setEventToUpdate]= useState(null);
 
@@ -24,13 +26,6 @@ const UsersTable=()=>{
         .catch(error => console.error('Error fetching users:', error));
     }
 
-    // const formatDate = (dateString) => {
-    //   const date = new Date(dateString);
-    //   const year = date.getFullYear();
-    //   const month = String(date.getMonth() + 1).padStart(2, '0');
-    //   const day = String(date.getDate()).padStart(2, '0');
-    //   return `${day}-${month}-${year}`;
-    // };
 
     useEffect(() => {
         // Fetch events from the backend
@@ -51,33 +46,17 @@ const UsersTable=()=>{
           .catch(error => console.error('Error deleting user:', error));
       };
 
-      // const updateEvent = (eventId, updatedData) => {
-      //   axios.put(`http://localhost:3009/event/${eventId}`, updatedData)
-      //     .then(response => {
-      //       // Update the event in the state
-      //       setEvents(events.map(event => event.event_id === eventId ? { ...event, ...updatedData } : event));
-      //       console.log(response.data.message);
-      //     })
-      //     .catch(error => console.error('Error updating event:', error));
-      // };
+      const handleRoleUpdate=(userId)=>{
+        axios.put(`http://localhost:3009/user/updateUserRole/${userId}`, { role:newRole })
+        .then(response=>{
+          if(response.data.success){
+            fetchUsers();
+            setUserToUpdate(null);
+          }
+        })
+        .catch(error => console.error('Error updating user role:', error));
+      }
 
-
-      
-
-    //   const handleUpdate=(eventId, updatedData, newImage) => {
-    //     console.log("hello we are in handleUpdate");
-    //     axios.put(`http://localhost:3009/event/updateEvent/${eventId}`, {...updatedData, newImage})
-    //     .then(response=>{
-    //       if(response.data.success) {
-    //         fetchEvents();
-    //       }
-    //     })
-    //     .catch(error => console.error('Error updating event', error));
-    //   };
-
-    //   const goToUpdateEvent=(eventId)=>{
-    //     navigate(`/updateEvent/${eventId}`)
-    //   }
 
       return (
         <div className="events-table-container">
@@ -98,10 +77,27 @@ const UsersTable=()=>{
                 <td>{user.user_id}</td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-                <td>{user.role}</td>
+                <td>
+                {userToUpdate === user.user_id ? (
+                  <div className="dropdown-container">
+                  <select value={newRole} onChange={(e) => setNewRole(e.target.value)}>
+                    <option value="">Select Role</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                  </div>
+                ) : (
+                  user.role
+                )}
+                </td>
                 <td>
                   <button className="delete" onClick={() => deleteUser(user.user_id)}>Delete</button>
                   {/* <button className="update" onClick={() => goToUpdateEvent(event.id)}>Update</button> */}
+                  {userToUpdate === user.user_id ? (
+                  <button className="update" onClick={() => handleRoleUpdate(user.user_id)}>Save</button>
+                ) : (
+                  <button className="update" onClick={() => setUserToUpdate(user.user_id)}>Update</button>
+                )}
                 </td>
               </tr>
             ))}

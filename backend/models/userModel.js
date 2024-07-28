@@ -22,7 +22,14 @@ const deleteUser= async(userId,next)=>{
     }
 }
 
+const updateUserRole= async(userId,newRole)=>{
+    await db.execute('UPDATE users SET role = ? WHERE user_id = ?', [newRole,userId]);
+    return {status:true, message:"userRole updated successfully"};
+
+};
+
 module.exports={
     getAllUsers,
-    deleteUser
+    deleteUser,
+    updateUserRole
 }

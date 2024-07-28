@@ -1,6 +1,6 @@
 const cloudinary= require('../cloudinary');
 const multer=require('multer');
-const eventModel= require('../models/eventmodel');
+const eventModel= require('../models/eventModel');
 const ErrorHandler= require('../utils/errorhandler');
 const path = require('path');
 const fs = require('fs');

@@ -42,13 +42,23 @@ connection.connect((err) => {
    }
  });
 
+//  Drop the existing user_events table if it exists
+  //  const dropUserEventsTableQuery = 'DROP TABLE IF EXISTS users;';
+  
+  //  connection.query(dropUserEventsTableQuery, (error, results) => {
+  //    if (error) {
+  //      console.error('Error dropping users table:', error);
+  //    } else {
+  //      console.log('users table dropped (if it existed)');
+  //    }});
+
  const createTableQuery = `
  CREATE TABLE IF NOT EXISTS users (
    user_id INT AUTO_INCREMENT PRIMARY KEY,
    username VARCHAR(255) NOT NULL,
    email VARCHAR(255) NOT NULL,
    password_hash VARCHAR(255) NOT NULL,
-   role ENUM('user', 'manager') NOT NULL DEFAULT 'user',
+   role ENUM('User', 'Admin') NOT NULL DEFAULT 'User',
    resetPasswordToken VARCHAR(255) DEFAULT NULL,
    resetPasswordExpire DATETIME DEFAULT NULL
  );
@@ -91,6 +101,15 @@ connection.query(createEventTableQuery,(error,results)=>{
   //    } else {
   //      console.log('user_events table dropped (if it existed)');
   //    }});
+//----------------------------------------
+  // const dropUserEventsTableQuery = 'DROP TABLE IF EXISTS user_events;';
+  
+  // connection.query(dropUserEventsTableQuery, (error, results) => {
+  //   if (error) {
+  //     console.error('Error dropping user_events table:', error);
+  //   } else {
+  //     console.log('user_events table dropped (if it existed)');
+  //   }});
 
   const createUserEventsTableQuery=`
   CREATE TABLE IF NOT EXISTS user_events (
