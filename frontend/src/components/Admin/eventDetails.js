@@ -112,6 +112,7 @@ const EventsTable=()=>{
               <th>Title</th>
               <th>Date</th>
               <th>Location</th>
+              <th>RegisteredUsers</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -122,6 +123,7 @@ const EventsTable=()=>{
                 <td>{event.title}</td>
                 <td>{formatDate(event.date)}</td>
                 <td>{event.location}</td>
+                <td>{event.registered_users}</td>
                 <td>
                   <button className="delete" onClick={() => deleteEvent(event.id)}>Delete</button>
                   <button className="update" onClick={() => goToUpdateEvent(event.id)}>Update</button>
