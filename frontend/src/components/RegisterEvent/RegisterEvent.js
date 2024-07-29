@@ -3,6 +3,8 @@ import './RegisterEvent.css';
 import axios from 'axios';
 import Modal from 'react-modal';
 import './Modal.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 import {useState} from 'react';
 
@@ -116,7 +118,7 @@ function SuccessModal ({isOpen, onClose}) {
                 <button onClick={onClose} className="close-button">×</button>
             </div>
             <div className="modal-body">
-            <i className="fas fa-check-circle">hello</i> Page submitted successfully!
+            <i className="fas fa-check-circle"></i> Page submitted successfully!
 
                 {/* <p>Page submitted successfully!</p> */}
             </div>
