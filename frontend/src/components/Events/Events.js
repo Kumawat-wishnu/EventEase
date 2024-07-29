@@ -92,6 +92,14 @@ function Events({searchQuery}) {
     //         .catch(error => console.error('Error fetching events', error));
     // }, []);
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${day}-${month}-${year}`;
+      };
+
     const loadRazorpay = async (eventId) => {
         if (!window.Razorpay) {
             const script = document.createElement('script');
@@ -209,7 +217,7 @@ function Events({searchQuery}) {
                                     </div>
                                     <div className="event-text">
                                         <h3 className="events-heading">{event.title}</h3>
-                                        <p className="event-date">Date: {event.date}</p>
+                                        <p className="event-date">Date: {formatDate(event.date)}</p>
                                         <p className="event-location">Location: {event.location}</p>
                                         <p className="event-description">{event.description}</p>
                                         <Button

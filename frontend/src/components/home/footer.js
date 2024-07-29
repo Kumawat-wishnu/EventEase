@@ -30,32 +30,30 @@ function Footer() {
     </section> 
     <section className="Footer">
     <footer className="footer">
-      <div className="container">
-        <div className="row my-4">
-          <div className="col-md-4">
-            <h4>About Us</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae elit libero.</p>
-          </div>
-          <div className="col-md-4">
-            <h4>Contact Us</h4>
-            <p>Email: info@events.com</p>
-            <p>Phone: 123-456-7890</p>
-          </div>
-          <div className="col-md-4">
-            <h4>Follow Us</h4>
-            <p>Stay connected on social media:</p>
-            <ul className="social-icons">
-              <li><a href="#"><i className="fab fa-facebook"></i></a></li>
-              <li><a href="#"><i className="fab fa-twitter"></i></a></li>
-              <li><a href="#"><i className="fab fa-instagram"></i></a></li>
-            </ul>
-          </div>
+        <div className="container">
+            <div className="row my-4">
+                <div className="col-md-6">
+                    <h4 className='contactUs'>Contact Us</h4>
+                    <p className="EP">Email: info@events.com</p>
+                    <p className="EP">Phone: 123-456-7890</p>
+                </div>
+                <div className="col-md-6">
+                    <h4 className="followUs">Follow Us</h4>
+                    <p className="FL">Stay connected on social media:</p>
+                    <ul className="social-icons">
+                        <li><a href="#"><i className="fab fa-facebook"></i></a></li>
+                        <li><a href="#"><i className="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i className="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <p className="text-center">&copy; 2024 EventEase. All rights reserved.</p>
         </div>
-        <hr />
-        <p className="text-center">&copy; 2024 EventEase. All rights reserved.</p>
-      </div>
     </footer>
-    </section>
+</section>
+
+
        </div>
     );
 }
