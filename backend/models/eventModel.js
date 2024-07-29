@@ -17,7 +17,12 @@ const createEvent=async(title,description,date,location,imageUrl,next)=>{
 
 const getAllEvents = async (next) => {
     try {
-        const [rows] = await db.promise().query('SELECT * FROM events');
+        // const [rows] = await db.promise().query('SELECT * FROM events');
+        const [rows]=await db.promise().query(
+   `SELECT events.*, COUNT(user_events.user_id) AS registered_users
+    FROM events
+    LEFT JOIN user_events ON events.id = user_events.event_id
+    GROUP BY events.id;`)
         return rows;
     } catch (error) {
         console.error('Error getting all events from database:', error);
