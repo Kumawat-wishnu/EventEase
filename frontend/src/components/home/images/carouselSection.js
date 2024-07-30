@@ -1,8 +1,8 @@
 import React from 'react';
 // import Carousel from 'react-bootstrap/Carousel';
-import Image1 from '../../../images/event1.jpeg';
-import Image2 from '../../../images/event2.jpeg';
-import Image3 from '../../../images/event3.jpeg';
+import Image1 from '../../../images/event1.jpg';
+import Image2 from '../../../images/event2.jpg';
+import Image3 from '../../../images/event3.jpg';
 import './carouselSection.css';
 import { Carousel, Container, Row, Col, Button } from 'react-bootstrap';
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import './footer.css';
 import {Container, Row, Col, Button } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 function Footer() {
     return (
@@ -11,7 +12,7 @@ function Footer() {
                 <Col md={8} className="text-center">
                     <h2>Host and Discover Exciting Events</h2>
                     <p>Find and create events tailored to your interests</p>
-                    <Button variant="primary">Explore Events</Button>
+                    <Button as={Link} to="/events" variant="primary">Explore Events</Button>
                 </Col>
             </Row>
         </Container>  
@@ -23,7 +24,7 @@ function Footer() {
            <Col md={8} className="text-center">
            <h2>Ready to Get Started?</h2>
              <p>Join EventEase today and start planning or attending events!</p>
-            <Button variant="primary">Sign Up Now</Button>
+            <Button as={Link} to="/signup" variant="primary">Sign Up Now</Button>
            </Col>
          </Row>
        </Container>
@@ -34,16 +35,16 @@ function Footer() {
             <div className="row my-4">
                 <div className="col-md-6">
                     <h4 className='contactUs'>Contact Us</h4>
-                    <p className="EP">Email: info@events.com</p>
-                    <p className="EP">Phone: 123-456-7890</p>
+                    <p className="EP">Email: vishnukumar122d@gmail.com</p>
+                    <p className="EP">Phone: 8000139034</p>
                 </div>
                 <div className="col-md-6">
                     <h4 className="followUs">Follow Us</h4>
                     <p className="FL">Stay connected on social media:</p>
                     <ul className="social-icons">
-                        <li><a href="#"><i className="fab fa-facebook"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/vishnu-kumawat-801508253/"><i className="fab fa-linkedin-in"></i></a></li>
                         <li><a href="#"><i className="fab fa-twitter"></i></a></li>
-                        <li><a href="#"><i className="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.instagram.com/vishnu___kumawat/?hl=en"><i className="fab fa-instagram"></i></a></li>
                     </ul>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import Spinnerr from './spinner';
 import './Events.css';
 import {Button} from 'react-bootstrap';
 import axios from 'axios';
-import Image1 from '../../images/event1.jpeg';
+// import Image1 from '../../images/event1.jpeg';
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
 // import jwt from 'jsonwebtoken';
